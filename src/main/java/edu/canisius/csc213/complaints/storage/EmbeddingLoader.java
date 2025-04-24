@@ -21,7 +21,27 @@ public class EmbeddingLoader {
      */
     public static Map<Long, double[]> loadEmbeddings(InputStream jsonlStream) throws IOException {
         // TODO: Implement parsing of JSONL to extract complaintId and embedding
-        return new HashMap<>();
+        // This is a placeholder implementation. You need to replace it with actual parsing logic.
+        Map<Long, double[]> embeddingss = new HashMap<>();
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(jsonlStream))){
+            String line;
+            while (reader.readLine() != null) {
+                line = reader.readLine();
+                Map<String, Object> jsonMap = objectMapper.readValue(line, Map.class);
+                Long compLongId = ((Number) jsonMap.get("complaintId")).longValue();
+                List<Double> embeddingList = (List<Double>) jsonMap.get("embedding");
+                double[] embedding = new double[embeddingList.size()];
+                for (int i = 0; i < embeddingList.size(); i++) {
+                    embedding[i] = embeddingList.get(i);
+                }
+                embeddingss.put(compLongId, embedding);
+            }
+
+        }
+        
+        return embeddingss;
     }
 
 }

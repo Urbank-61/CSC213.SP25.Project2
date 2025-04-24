@@ -15,6 +15,15 @@ public class ComplaintMerger {
      */
     public static void mergeEmbeddings(List<Complaint> complaints, Map<Long, double[]> embeddings) {
         // TODO: For each complaint, match the ID to an embedding and set it
+        for (Complaint complaint : complaints){
+            Long complaintId = complaint.getComplaintId();
+            double[] embedding = embeddings.get(complaintId);
+            if (embedding != null) {
+                complaint.setEmbedding(embedding);
+            } else {
+                System.err.println("No embedding found for complaint ID: " + complaintId);
+            }
+        }
     }
 
 }

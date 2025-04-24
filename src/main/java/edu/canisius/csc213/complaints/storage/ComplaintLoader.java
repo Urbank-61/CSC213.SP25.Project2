@@ -25,6 +25,21 @@ public class ComplaintLoader {
      */
     public static List<Complaint> loadComplaintsWithEmbeddings(String csvPath, String jsonlPath) throws Exception {
         // TODO: Load CSV and JSONL resources, parse, and return hydrated Complaint list
-        return List.of(); // placeholder
+        InputStream csvStream = ComplaintLoader.class.getResourceAsStream(csvPath);
+        if (csvStream == null) {
+            throw new IllegalArgumentException("CSV file not found: " + csvPath);
+        }
+        List<Complaint> complaints = new CsvToBeanBuilder<Complaint>(
+                new InputStreamReader(csvStream, StandardCharsets.UTF_8)
+        ).withType(Complaint.class).build().parse();
+        InputStream jsonlStream = ComplaintLoader.class.getResourceAsStream(jsonlPath);
+        if (jsonlStream == null) {
+            throw new IllegalArgumentException("JSONL file not found: " + jsonlPath);
+        }
+        Map<Long, double[]> embeddings = EmbeddingLoader.loadEmbeddings(jsonlStream);
+        ComplaintMerger.mergeEmbeddings(complaints, embeddings);
+        return complaints;
+        
+        // placeholder
     }
 }
