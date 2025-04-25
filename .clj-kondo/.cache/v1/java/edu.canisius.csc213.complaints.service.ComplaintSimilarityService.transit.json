@@ -1,0 +1,1 @@
+["^ ","~:members",["^ ","complaint",["~#set",[["^ ","~:flags",["^2",["~:field"]]]]],"score",["^2",[["^ ","^3",["^2",["^4"]]]]],"ComplaintSimilarityService",["^2",[["^ ","^3",["^2",["~:method","~:public"]]]]],"ComplaintWithScore",["^2",[["^ ","^3",["^2",["^7"]]]]],"findTop3Similar",["^2",[["^ ","^3",["^2",["^7","^8"]]]]]]]
