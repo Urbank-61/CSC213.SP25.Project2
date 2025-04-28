@@ -12,8 +12,8 @@ public class ComplaintLoaderTest {
     @Test
     public void testLoadComplaintsWithEmbeddings() throws Exception {
         List<Complaint> complaints = ComplaintLoader.loadComplaintsWithEmbeddings(
-                "src/test/resources/complaints_sample_1_30.csv",
-                "src/test/resources/embeddings_sample_1_30.jsonl"
+                "complaints_sample_1_30.csv",
+                "embeddings_sample_1_30.jsonl"
                 //"CSC213.SP25.Project2/src/test/resources/complaints_sample_1_30.csv",
                 //"CSC213.SP25.Project2/src/test/resources/embeddings_sample_1_30.jsonl"
         );
