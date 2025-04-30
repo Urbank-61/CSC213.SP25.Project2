@@ -40,6 +40,10 @@ public class ComplaintLoader {
         ComplaintMerger.mergeEmbeddings(complaints, embeddings);
         return complaints;
         
-        // placeholder
     }
+/* 
+    public static List<Complaint> SearchComplaints(String csvPath, String jsonlPath, String CompanyName) throws Exception {
+
+    }
+    */
 }

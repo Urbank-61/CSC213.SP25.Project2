@@ -5,9 +5,19 @@
 </head>
 <body>
 <h2>Complaint ID: <span th:text="${complaint.complaintId}"></span></h2>
-<p><strong>Company:</strong> <span th:text="${complaint.company}"></span></p>
+<h2>Company:<span th:text="${complaint.company}"></span></h2>
+<p><strong>Date recived:</strong> <span th:text="${complaint.dateReceivedStr}"></span></p>
+<p><strong>Product:</strong> <span th:text="${complaint.product}"></span></p>
+<p><strong>Sub-product:</strong> <span th:text="${complaint.subProduct}"></span></p>
+<p><strong>Issue:</strong> <span th:text="${complaint.issue}"></span></p>
+<p><strong>Sub-issue:</strong> <span th:text="${complaint.subIssue}"></span></p>
 <p><strong>Narrative:</strong></p>
 <p th:text="${complaint.narrative}"></p>
+
+<p><strong>Public Response:</strong> <span th:text="${complaint.publicResponse}"></span></p> 
+<p><strong>State:</strong> <span th:text="${complaint.state}"></span></p>
+<p><strong>Zip Code:</strong> <span th:text="${complaint.zipCode}"></span></p>
+
 
 <hr/>
 
