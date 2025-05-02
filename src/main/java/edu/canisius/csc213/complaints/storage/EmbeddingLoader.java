@@ -21,7 +21,6 @@ public class EmbeddingLoader {
      */
     public static Map<Long, double[]> loadEmbeddings(InputStream jsonlStream) throws IOException {
         // TODO: Implement parsing of JSONL to extract complaintId and embedding
-        // This is a placeholder implementation. You need to replace it with actual parsing logic.
         Map<Long, double[]> embeddings = new HashMap<>();
         ObjectMapper objectMapper = new ObjectMapper();
 

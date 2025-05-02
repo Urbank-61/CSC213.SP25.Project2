@@ -23,11 +23,9 @@ public class ComplaintSimilarityService {
                 .sorted((a, b) -> Double.compare(b.score, a.score))
                 .limit(3)
                 .toList();
-        // Convert to List<Complaint>
         return scores.stream()
                 .map(cs -> cs.complaint)
                 .toList();
-        // If no similar complaints found, return an empty list
         
 
 
@@ -47,7 +45,7 @@ public class ComplaintSimilarityService {
             normB += b[i] * b[i];
         }
         if (normA == 0.0 || normB == 0.0) {
-            return 0.0; // Avoid division by zero
+            return 0.0; 
         }
         return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
     }

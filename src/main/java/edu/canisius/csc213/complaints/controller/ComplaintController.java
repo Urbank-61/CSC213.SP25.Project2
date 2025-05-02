@@ -21,10 +21,24 @@ public class ComplaintController {
     }
 
     @GetMapping("/complaint")
-    public String showComplaint(@RequestParam(defaultValue = "0") int index, Model model) {
+    public String showComplaint(@RequestParam(name = "index", defaultValue = "0") String indexParam, Model model) {
+
+        int index;
         int max = complaints.size();
-        if (index < 0) index = 0;
-        if (index >= max) index = max - 1;
+
+
+        String error = null;
+
+        try {
+            index = Integer.parseInt(indexParam);
+            if (index < 0 || index >= max) {
+                error = "Please enter a number between 0 and " + (max - 1) + ".";
+                index = 0; // fallback
+            }
+        } catch (NumberFormatException e) {
+            error = "Invalid input. Please enter a numeric value.";
+            index = 0; // fallback
+        }
 
         Complaint current = complaints.get(index);
         List<Complaint> similar = similarityService.findTop3Similar(current);
@@ -33,7 +47,37 @@ public class ComplaintController {
         model.addAttribute("similarComplaints", similar);
         model.addAttribute("prevIndex", index > 0 ? index - 1 : 0);
         model.addAttribute("nextIndex", index < max - 1 ? index + 1 : max - 1);
+        model.addAttribute("error", error); // 👈 Add the error to the model if present
 
-        return "complaint"; // ← This maps to complaint.html
+        model.addAttribute("maxIndex", complaints.size() - 1);
+
+
+        return "complaint";
+
     }
+
+    // Endpoint to handle search by company name
+    @GetMapping("/search")
+    public String searchByCompany(@RequestParam(name = "company", required = false) String company, Model model) {
+        if (company == null || company.trim().isEmpty()) {
+            model.addAttribute("error", "Please enter a company name.");
+            return "search";
+        }
+
+        // Case-insensitive filtering
+        List<Complaint> matches = complaints.stream()
+            .filter(c -> c.getCompany() != null &&
+                        c.getCompany().toLowerCase().contains(company.toLowerCase()))
+            .toList();
+
+        if (matches.isEmpty()) {
+            model.addAttribute("error", "No complaints found for that company.");
+        } else {
+            model.addAttribute("searchResults", matches);
+        }
+
+        model.addAttribute("companySearch", company); 
+        return "search";
+    }
+
 }

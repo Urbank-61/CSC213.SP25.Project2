@@ -4,35 +4,54 @@
     <title>Complaint Viewer</title>
 </head>
 <body>
-<h2>Complaint ID: <span th:text="${complaint.complaintId}"></span></h2>
-<h2>Company:<span th:text="${complaint.company}"></span></h2>
-<p><strong>Date recived:</strong> <span th:text="${complaint.dateReceivedStr}"></span></p>
-<p><strong>Product:</strong> <span th:text="${complaint.product}"></span></p>
-<p><strong>Sub-product:</strong> <span th:text="${complaint.subProduct}"></span></p>
-<p><strong>Issue:</strong> <span th:text="${complaint.issue}"></span></p>
-<p><strong>Sub-issue:</strong> <span th:text="${complaint.subIssue}"></span></p>
-<p><strong>Narrative:</strong></p>
-<p th:text="${complaint.narrative}"></p>
+    <h1>Complaint Viewer</h1>
 
-<p><strong>Public Response:</strong> <span th:text="${complaint.publicResponse}"></span></p> 
-<p><strong>State:</strong> <span th:text="${complaint.state}"></span></p>
-<p><strong>Zip Code:</strong> <span th:text="${complaint.zipCode}"></span></p>
+    <hr/>
+
+    <h2>Jump to a Complaint</h2>
+
+    <!-- Jump to specific complaint -->
+    <form method="get" action="/complaint">
+        <label for="indexInput">Jump to complaint #:</label>
+        <input type="text" name="index" id="indexInput" 
+        th:placeholder="'0 - ' + ${maxIndex}" />
+
+        <button type="submit">Go</button>
+    </form>
+
+    <p th:if="${error != null}" th:text="${error}" style="color: red;"></p>
+
+    <hr/>
+
+    <h2>Complaint ID: <span th:text="${complaint.complaintId}">[No ID]</span></h2>
+    <p>Company:<span th:text="${complaint.company}"></span></p>
+    <p><strong>Date recived:</strong> <span th:text="${complaint.dateReceivedStr}"></span></p>
+    <p><strong>Product:</strong> <span th:text="${complaint.product}"></span></p>
+    <p><strong>Sub-product:</strong> <span th:text="${complaint.subProduct}"></span></p>
+    <p><strong>Issue:</strong> <span th:text="${complaint.issue}"></span></p>
+    <p><strong>Sub-issue:</strong> <span th:text="${complaint.subIssue}"></span></p>
+    <p><strong>Narrative:</strong></p>
+    <p th:text="${complaint.narrative}"></p>
+
+    <p><strong>Public Response:</strong> <span th:text="${complaint.publicResponse}"></span></p> 
+    <p><strong>State:</strong> <span th:text="${complaint.state}"></span></p>
+    <p><strong>Zip Code:</strong> <span th:text="${complaint.zipCode}"></span></p>
 
 
-<hr/>
+    <hr/>
 
-<h3>Top 3 Most Similar Complaints</h3>
-<ul>
-    <li th:each="similar : ${similarComplaints}">
-        <p><strong>ID:</strong> <span th:text="${similar.complaintId}"></span></p>
-        <p><strong>Company:</strong> <span th:text="${similar.company}"></span></p>
-        <p th:text="${similar.narrative}"></p>
-    </li>
-</ul>
+    <h3>Top 3 Most Similar Complaints</h3>
+    <ul>
+        <li th:each="similar : ${similarComplaints}">
+            <p><strong>ID:</strong> <span th:text="${similar.complaintId}"></span></p>
+            <p><strong>Company:</strong> <span th:text="${similar.company}"></span></p>
+            <p th:text="${similar.narrative}"></p>
+        </li>
+    </ul>
 
-<hr/>
-<a th:href="@{|/complaint?index=${prevIndex}|}">⬅ Previous</a> |
-<a th:href="@{|/complaint?index=${nextIndex}|}">Next ➡</a>
+    <hr/>
+    <a th:href="@{|/complaint?index=${prevIndex}|}">⬅ Previous</a> |
+    <a th:href="@{|/complaint?index=${nextIndex}|}">Next ➡</a>
 
 </body>
 </html>

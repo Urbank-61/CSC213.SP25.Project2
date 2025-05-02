@@ -41,9 +41,5 @@ public class ComplaintLoader {
         return complaints;
         
     }
-/* 
-    public static List<Complaint> SearchComplaints(String csvPath, String jsonlPath, String CompanyName) throws Exception {
 
-    }
-    */
 }
